@@ -1,0 +1,35 @@
+<div class="album">
+  <p>
+    <div>
+      <h3 style="display: inline-block">{{ album.name }}</h3>
+      <a href="mailto:me@juke.com?subject={{ album.name }}&body=Check out this sick album at http://localhost:1337/albums/{{ album.id }}"
+         class="btn btn-default"
+         style="display: inline-block; margin-left: 20px">
+        <span class="glyphicon glyphicon-share"></span>
+      </a>
+    </div>
+    <img ng-src="{{ album.imageUrl }}" class="img-thumbnail">
+  </p>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Artists</th>
+        <th>Genres</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="song in album.songs" ng-class="{active: song === getCurrentSong() }">
+        <td>
+          <button class="btn btn-default btn-xs" ng-click="toggle(song)">
+            <span class="glyphicon" ng-class="{ 'glyphicon-pause': isPlaying(song), 'glyphicon-play': !isPlaying(song) }"></span>
+          </button>
+        </td>
+        <td>{{ song.name }}</td>
+        <td><span ng-repeat="artist in song.artists">{{ artist.name }}{{ $last ? '' : ', ' }}</span></td>
+        <td>{{ song.genres.join(', ') }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
